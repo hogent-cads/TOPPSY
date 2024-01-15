@@ -1,0 +1,36 @@
+---
+title: "Delphi Round 1"
+author: "CADS - dr. Willem De Keyzer"
+format: html
+editor: visual
+execute:
+ echo: false
+ warning: false
+---
+
+```{r}
+
+library(tidyverse)
+library(qualtRics)
+
+# list all TOPPSY survey id's
+id1 <- 'SV_8pGFdxuCIijJyWW'
+id2 <- 'SV_5BjwPDdPP9dJTF4'
+id3 <- 'SV_d4LyS5pyp0DwhXo'
+
+
+# get survey data DELPHI 1
+df1 <- fetch_survey(surveyID = id1, verbose = FALSE, save_dir = "data/")
+
+```
+
+Number of responses: `r n1`
+
+```{r}
+
+n1 <- df1 |> 
+  summarise(n = n()) |>
+  pull() |> 
+  print()
+
+```
