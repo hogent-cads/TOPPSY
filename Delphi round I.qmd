@@ -1,6 +1,7 @@
 ---
 title: "Delphi Round 1"
 author: "CADS - dr. Willem De Keyzer"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 format: html
 editor: visual
 execute:
@@ -12,25 +13,293 @@ execute:
 
 library(tidyverse)
 library(qualtRics)
+library(kableExtra)
 
 # list all TOPPSY survey id's
 id1 <- 'SV_8pGFdxuCIijJyWW'
 id2 <- 'SV_5BjwPDdPP9dJTF4'
 id3 <- 'SV_d4LyS5pyp0DwhXo'
 
+```
+
+```{r}
+#| eval: FALSE
 
 # get survey data DELPHI 1
 df1 <- fetch_survey(surveyID = id1, verbose = FALSE, save_dir = "data/")
+```
+
+```{r}
+df1 <- read_rds(file = "data/SV_8pGFdxuCIijJyWW.rds")
+```
+
+```{r}
+# get some metrics
+n1 <- df1 |> 
+  summarise(n = n()) |>
+  pull() 
+
+first_enddate <- df1 |> 
+  summarise(min(EndDate)) |>
+  pull() 
+
+last_enddate <- df1 |> 
+  summarise(max(EndDate)) |>
+  pull() 
+
+n_finished <-  df1 |> 
+  count(Finished) |> 
+  pull()
 
 ```
 
+# Survey letrics
 Number of responses: `r n1`
+
+Number of complete responses: `r n_finished`
+
+First response: `r first_enddate`
+
+Last response: `r last_enddate`
+
+# Data dictionary
 
 ```{r}
 
-n1 <- df1 |> 
-  summarise(n = n()) |>
-  pull() |> 
-  print()
+# Function to create a data dictionary
 
+create_data_dictionary <- function(dataframe) {
+  dictionary <- data.frame(
+    Variable = names(dataframe),
+    Type = sapply(dataframe, class),
+    Label = sapply(dataframe, function(x) sjlabelled::get_label(x)),
+    stringsAsFactors = FALSE
+  )
+
+  # Add summary statistics
+  dictionary$Summary <- sapply(dataframe, function(x) {
+    if (is.numeric(x)) {
+      paste0("Mean=", mean(x, na.rm = TRUE), ", Min=", min(x, na.rm = TRUE), ", Max=", max(x, na.rm = TRUE))
+    } else if (is.factor(x) || is.character(x)) {
+      paste0("Categories=", length(unique(x)))
+    } else {
+      NA
+    }
+  })
+
+  rownames(dictionary) <- NULL
+  return(dictionary)
+}
+
+# Create data dictionary
+data_dictionary <- create_data_dictionary(df1)
+
+data_dictionary |> 
+  select(Variable, Label, Summary) |>
+  kable("html") |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+# Summary results
+
+```{r}
+# set my kable function
+my_kable <- function(x) {
+    x |> 
+    kable("html", col.names = c(label , "Count"), align = 'l') |> 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  }
+
+# set my label function
+my_label <- function(var) {
+  sjlabelled::get_label(var)
+}
+```
+
+##  Q2
+
+```{r}
+label <- my_label(df1$Q2)
+df1 |> 
+  count(Q2, sort = TRUE) |> 
+  my_kable()
+```
+
+## Q2_text
+
+```{r}
+label <- my_label(df1$Q2_7_TEXT)
+# print only when there are values
+if (any(df1$Q2_7_TEXT[!is.na(df1$Q2_7_TEXT)] != 0)) {
+  df1$Q2_7_TEXT[!is.na(df1$Q2_7_TEXT)] |> 
+    table() |> 
+    my_kable()
+}
+```
+
+## Q3
+
+```{r}
+label <- my_label(df1$Q3)
+df1 |> 
+  count(Q3, sort = TRUE) |> 
+  my_kable()
+```
+
+## Q3_4_TEXT
+
+```{r}
+label <- my_label(df1$Q3_4_TEXT)
+# print only when there are values
+if (any(df1$Q3_4_TEXT[!is.na(df1$Q3_4_TEXT)] != 0)) {
+  df1$Q3_4_TEXT[!is.na(df1$Q3_4_TEXT)] |> 
+    table() |> 
+    my_kable()
+}
+```
+
+## Q4
+
+```{r}
+label <- my_label(df1$Q4)
+df1 |> 
+  count(Q4, sort = FALSE) |> 
+  my_kable()
+```
+
+## Q5
+
+```{r}
+label <- my_label(df1$Q5)
+df1 |> 
+  count(Q5, sort = TRUE) |> 
+  my_kable()
+```
+
+## Q6
+
+```{r}
+label <- my_label(df1$Q6)
+df1 |> 
+  count(Q6, sort = TRUE) |> 
+  my_kable()
+```
+
+## Q7
+
+```{r}
+label <- my_label(df1$Q7)
+df1 |> 
+  count(Q7, sort = TRUE) |> 
+  my_kable()
+```
+
+## Q8
+
+```{r}
+label <- my_label(df1$Q8)
+
+df1 |>
+  mutate(row_n = row_number()) |>
+  select(row_n, ResponseId, Q8) |>
+  kable("html", col.names = c('Response', 'ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+## Q8 - single line entries
+
+```{r}
+
+# Split the Q8 column into separate lines and associate with ResponseId
+expanded_df <- df1 |> 
+  mutate(Q8 = strsplit(as.character(Q8), ";")) |> 
+  unnest(Q8) |> 
+  mutate(Q8 = trimws(Q8)) # Trim whitespace if necessary
+  
+# View the resulting dataframe
+label <- my_label(df1$Q8)
+remove <- c("etc", "")
+
+expanded_df |> 
+  filter(!Q8 %in% remove) |>
+  select(ResponseId, Q8) |> 
+  kable("html", col.names = c('ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+## Q9
+
+```{r}
+label <- my_label(df1$Q9)
+df1 |>
+  mutate(row_n = row_number()) |>
+  select(row_n, ResponseId, Q9) |>
+  kable("html", col.names = c('Response', 'ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+## Q10
+
+```{r}
+label <- my_label(df1$Q10)
+df1 |> 
+  count(Q10, sort = TRUE) |> 
+  my_kable()
+
+```
+
+## Q11
+
+```{r}
+label <- my_label(df1$Q11)
+df1 |> 
+  mutate(row_n = row_number()) |>
+  select(row_n, ResponseId, Q11) |>
+  kable("html", col.names = c('Response', 'ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+## Q11 - single line entries
+
+```{r}
+# Split the Q11 column into separate lines and associate with ResponseId
+expanded_df <- df1 |> 
+  mutate(Q11 = strsplit(as.character(Q11), ";", )) |> 
+  unnest(Q11) |> 
+  mutate(Q11 = trimws(Q11)) # Trim whitespace if necessary
+  
+# View the resulting dataframe
+label <- my_label(df1$Q11)
+
+expanded_df |> 
+  filter(!Q11 %in% remove) |>
+  select(ResponseId, Q11) |> 
+  kable("html", col.names = c('ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+## Q12
+
+```{r}
+label <- my_label(df1$Q12)
+df1 |>
+  mutate(row_n = row_number()) |>
+  select(row_n, ResponseId, Q12) |>
+  kable("html", col.names = c('Response', 'ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+## Q13
+
+```{r}
+label <- my_label(df1$Q13)
+df1 |> 
+  mutate(row_n = row_number()) |>
+  select(row_n, ResponseId, Q12) |>
+  kable("html", col.names = c('Response', 'ResponseId', label) , align = 'l') |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
