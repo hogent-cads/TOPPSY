@@ -26,11 +26,19 @@ id3 <- 'SV_d4LyS5pyp0DwhXo'
 #| eval: FALSE
 
 # get survey data DELPHI 1
-df1 <- fetch_survey(surveyID = id1, verbose = FALSE, save_dir = "data/")
+df1 <- fetch_survey(surveyID = id1, verbose = FALSE, save_dir = "data/raw")  
 ```
 
 ```{r}
-df1 <- read_rds(file = "data/SV_8pGFdxuCIijJyWW.rds")
+df1 <- read_rds(file = "data/raw/SV_8pGFdxuCIijJyWW.rds") |> 
+  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail'))
+
+saveRDS(df1, file = "data/clean/Delphi1.rds")
+xlsx::write.xlsx(df1, file = "data/clean/Delphi1.xlsx")
+```
+
+```{r}
+
 ```
 
 ```{r}
@@ -69,12 +77,21 @@ Last response: `r last_enddate`
 # Function to create a data dictionary
 
 create_data_dictionary <- function(dataframe) {
-  dictionary <- data.frame(
-    Variable = names(dataframe),
-    Type = sapply(dataframe, class),
-    Label = sapply(dataframe, function(x) sjlabelled::get_label(x)),
-    stringsAsFactors = FALSE
-  )
+  # Get basic information
+  variable_names <- names(dataframe)
+  variable_types <- sapply(dataframe, function(x) class(x)[1])
+  variable_labels <- sapply(dataframe, function(x) sjlabelled::get_label(x))
+
+  # Check if all vectors have the same length
+  if (length(variable_names) != length(variable_types) || length(variable_names) != length(variable_labels)) {
+    stop("Mismatch in the lengths of variables, types, and labels.")
+  }
+ 
+  # Create the initial data frame
+  dictionary <- data.frame(Variable = variable_names, 
+                           Type = variable_types, 
+                           Label = variable_labels, 
+                           stringsAsFactors = FALSE)
 
   # Add summary statistics
   dictionary$Summary <- sapply(dataframe, function(x) {
@@ -86,16 +103,16 @@ create_data_dictionary <- function(dataframe) {
       NA
     }
   })
-
-  rownames(dictionary) <- NULL
+ 
+  rownames(dictionary) <- NULL #remove rownames
   return(dictionary)
 }
+
 
 # Create data dictionary
 data_dictionary <- create_data_dictionary(df1)
 
 data_dictionary |> 
-  select(Variable, Label, Summary) |>
   kable("html") |> 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 
