@@ -1,0 +1,262 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,Q1,Q2,Q2_7_TEXT,Q3,Q3_4_TEXT,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13
+2024-01-08T08:15:16Z,2024-01-08T08:19:46Z,IP Address,37.96.85.163,100,270,TRUE,2024-01-08T08:19:47Z,R_59bJh7FGjoWuPKt,NA,55.6702,12.5298,email,EN,Yes,Academic researcher,NA,Mental health,NA,15,Europe,No,No,"Take care of their own mental health, so that they can remain empathetic.",Psychological first aid,Probably yes,"They cannot impose their own culturally shaped biases to judge thoughts, emotions, and behaviour of migrants",Ask questions to elicit explanatory models and cultural concepts of distress,"Empathy, non-judgment, hope"
+2024-01-08T08:03:28Z,2024-01-08T08:33:51Z,IP Address,137.56.85.230,100,1822,TRUE,2024-01-08T08:33:52Z,R_2pSwRLoCKMls5vF,NA,51.5887,4.9922,email,EN,Yes,Academic researcher,NA,Migration and asylum,NA,17,Europe,No,No,"be educated on their own biases and cultural conceptions, the process they engage in should reflect the communicative needs and limitations (e.g., translators, test adaptation), and ideally processes are developed together with target populations if cultural expertise of the frontline worker is missing.
+My main angle in how to contribute to these processes is checking and developing the methodological appropriateness of the tools employed, and conveying this to practitioners in general (e.g., care workers, general practitioners, police officers, etc.)","I am applying the general principles of the International Test Commission (https://www.intestcom.org/) for development and validation of tools in use by practitioners.
+my gold standard textbook reference for research and diagnostic tools is: van de Vijver, F. J. R., & Leung, K. (2021). Methods and Data Analysis for Cross-Cultural Research. (V. H. Fetvadjiev, J. He, & J. R. J. Fontaine, Eds.) (2nd ed.). Cambridge: Cambridge University Press.
+
+There are other tools available for more practically working professionals - these are often nationally represented. In my case, these would be Dutch tools, se here:
+https://www.zorginzicht.nl/kwaliteitsinstrumenten/ggz-diversiteit
+",Definitely not,"1. cultural syndromes of distress
+1a recognizing that abnormality is culturally defined and understood
+2. cultural idioms of distress (the diff between somatized/psychologized aspects)
+2a. how somatic/psychological markers differ between normatively different cultural contexts (ind/interdependent), as well as class contexts (blue/white collar)
+2b. norms for display and feeling rules in the general population which moderate emotional expression (Matsumoto)
+3. cultural explanations of distress
+[see cultural formulation interview, APA DSM5]
+4. the role of match and mismatch between care worker and client for over/underpathologizing
+5. structural factors (SES, group contexts, historical asymmetries, access, receiving society [MIPEX differences] etc.) are often more relevant than individual responsibilities for illness, and systematic/systemic issues limit what an individual can achieve
+6. avoiding the ecological fallacy when interpreting individual trajectories, but recognizing faultlines for specific groups (trauma-prone refugees)
+","1. choose what is functional for the client
+1a know when you cannot help - and when to involve others
+2. be flexible in manifest content of interventions when seeking to preserve the structural core
+3. identify treatment barriers that are unrelated/less related/not central to the treatment reason (e.g., language, stigma, health beliefs)
+4. look up recent literature on what works with specific groups
+
+(this is in addition to cultural competence, mentioned earlier)
+","[this is a difficult question to answer, as the intercultural competence aspect should take care of this]"
+2024-01-08T08:52:41Z,2024-01-08T09:56:44Z,IP Address,81.164.136.27,100,3842,TRUE,2024-01-08T09:56:45Z,R_1fEMduNVmRjoru1,NA,50.8758,4.7027,email,EN,Yes,Practitioner,NA,Nexus of mental health & migration and asylum,NA,20,Europe,Yes,Yes,"be aware of the fact as mental health care workers, they work and live within a cultural context themselves;
+display a form of cultural humility;
+be open to other definitions of mental health; 
+be open to other definitions or traditions of healing;
+encourage an in-depth exchange of these definitions;
+be aware of how different cultural points of view and different societal positions interact - also within the context of psychotherapy;
+be open for working with translators and cultural mediators;
+be aware of the effects of (forced) migration and not over culturalize everything;
+be aware of the fact that this work implicitly or explicitly has an impact on the way you perceive political debate;
+etc;",as above (I'm not aware of an exisiting framework or set of guidelines);,Probably yes,"speaking in one's motherlanguage has great advantages in mental health care;
+the importance of culture in definitions of health and healing traditions;
+migration has an impact on people (transgenerational);
+importance of familyrelations;
+basic knowledge about cultural and religious beliefs and traditions;
+","create relations and working alliances across cultural differences;
+work in co-consultations with translators and cultural mediators;
+feel what people are looking for within the psychotherapeutic context - meaning not purely fixating on the therapists ideals, diagnostics and thoughts, but feeling, sensing what the patient needs, longs for or wishes to accomplish (for instance not focusing purely on trauma therapy but understanding the importance of other goals);
+work in a network - not see your work as performed on an isolated island;","cultural humility;
+personal interest and involvement;
+warmth;
+tolerance;
+non-judgemental style;
+flexibility of thinking and behaving;"
+2024-01-08T13:38:08Z,2024-01-08T13:43:14Z,IP Address,31.94.64.85,100,305,TRUE,2024-01-08T13:43:15Z,R_2BnVDgPq8eUulem,NA,51.4648,-0.0373,email,EN,Yes,Practitioner,NA,Mental health,NA,20,Europe,Yes,Yes,"listen actively, be non-judgmental and be aware of the wide range of cultural idioms used to communicate mental distress and of cultural barriers to its disclosure",Trauma-Informed Code of Conduct (TiCC),Probably yes,the people they see are likely to have suffered trauma and that they may not realise or be willing to disclose what has happened to them and/or to disclose their mental symptoms,promote trust and thereby encourage disclosure,willingness to listen non-judgmentally and to take positive action to address trauma-related or other mental health needs as necessary
+2024-01-08T14:00:26Z,2024-01-08T14:19:37Z,IP Address,74.71.135.42,100,1150,TRUE,2024-01-08T14:19:39Z,R_1EosydvNe1hLDl1,NA,40.6643,-73.9763,email,EN,Yes,Academic researcher,NA,Migration and asylum,NA,20,North America,No,Yes,(1) learn about cultural and other contextual features of the populations they are encountering that may affect interactions with service workers; (2) ask about how and individual would describe their mental health challenges; (3) ask about how their family members would describe their (the individual's) mental health challenges if they knew about them; (4) ask about how other people in their communities would describe their mental health challenges if they knew about them.,DSM-5 Cultural Formulation Interview; ecological systems framework that involves culture and context of displacement,Probably yes,"the context of displacement as well as cultural background will affect asylum seekers' presentation, experience, and symptoms of mental health problems.","contextualize asylum seekers' presentation within relevant cultural factors, displacement consideration and secondary gain/demand characteristics of seeking asylum.","ability to listen without judgement, build rapport, and ask questions about family and community attitudes as well as individual-level phenomena."
+2024-01-08T16:15:42Z,2024-01-08T16:23:52Z,IP Address,174.7.244.31,100,489,TRUE,2024-01-08T16:23:53Z,R_1esAhrLLcK6AhtT,NA,49.2476,-123.1234,email,EN,Yes,Academic researcher,NA,Nexus of mental health & migration and asylum,NA,25,North America,Yes,Yes,"1 Understand the cultural and political context from which people have fled;
+
+2  Be respectful and compassionate;
+
+3 Be familiar with the basics of asylum procedures, and have resources to help people get questions answered;
+
+4 Understand the basics of common mental health challenges experienced by asylum seekers, including tyhe impact of trauma on memory","trauma theory
+ecological theory
+asylum law",Definitely yes,"1 trauma impacts memory in ways that can cause inconsistent narratives;
+
+2 it is essential to move interviews and conversations at a pace comfortable and tolerable to clients;
+
+3 people have left everything b ehind and are likely experiencing powerful grief and uncertainty","1 tolerate strong emotions;
+
+2 communicate clearly and empathically
+","1 compassion;
+
+2 respect;
+
+3 cultural competence;
+
+4 professionalism"
+2024-01-08T13:16:45Z,2024-01-09T01:48:11Z,IP Address,110.21.219.129,100,45086,TRUE,2024-01-09T01:48:12Z,R_4NQTIBxJqhGpqyB,NA,-33.769,150.7782,email,EN,Yes,Academic researcher,NA,Mental health,NA,20,Australia/Oceania,Yes,No,"Take time to understand the person needs,
+Allow enough time to provide appropriate translation , 
+Have a trauma informed approach , 
+Understand the importance of family and a collective approach to helpseeking 
+
+","1. National and medical council of Australia research guidelines on researching vulnerable population groups (Migrant and Refugee Health Partnership)
+2. Australian Multicultural Health Collaborative 
+
+3. Uribe Guajardo MG, Slewa-Younan S, Jorm AF. Important Considerations When Providing Mental Health First Aid to Iraqi Refugees: A Supplementary Booklet for People Working with Iraqi Refugees. Melbourne: Mental Health First Aid Australia; 2016 - THIS IS VERY USEFUL AND MANY OF MY RESPONSES TO NEXT SET OF QUESTIONS COME FROM THIS RESOURCE!!!
+3. Australian psychological society working with refugees (https://psychology.org.au/community/advocacy-social-issues/refugees-and-asylum-seekers)
+",Might or might not,"In order to provide the best possible help to an refugee/asylum seeker with mental health problems you need to be able to work with the person’s cultural
+framework.
+Be careful to respect the cultural traditions of the person, and not to dismiss or trivialise them.
+When discussing mental health problems, be aware that a person may use alternative words to express their distress (e.g. using the word
+‘nerves’ rather than ‘anxiety’) and that there might be a tendency for the person with mental health problems to present somatic complaints rather
+than psychological ones","
+Always communicate in a respectful way. Avoid using a raised voice with a person with low English comprehension, as this will not enhance communication.
+
+If the person does not appear to understand, you should rephrase your statement in simpler words, avoiding jargon.
+
+Always be aware of the surroundings and avoid having conversations in places that may trigger flashbacks and fearful reactions in the person (e.g. rooms with closed-in spaces or barred windows).
+","
+Cultural beliefs may also affect attitudes about treatments. For example some may have little knowledge or experience with psychotherapy as a treatment
+option for mental health problems.
+
+They may view reading the religious texts  as a helpful
+intervention for mental health problems.
+
+While culture and ethnicity are important, be cautious about attributing too much to them, particularly as there is a range of other factors that might affect the asylum seekers/refugees’ mental health (e.g. trauma and torture, experiences in their country of origin, settlement issues).
+
+The influence of culture is two way. You also need to assess the potential influence that your own cultural values, expectations and attitudes can have
+on the help you give to the person. 
+
+For example, your confidence in Western approaches to health may lead you to overlook or dismiss alternative health beliefs that may be held by others"
+2024-01-09T09:15:49Z,2024-01-09T09:29:14Z,IP Address,62.45.102.31,100,805,TRUE,2024-01-09T09:29:15Z,R_1JkU0tUV649UwI9,NA,51.9879,5.1907,email,EN,Yes,Practitioner,NA,Mental health,NA,25,Europe,Yes,No,"1. be trained in cultural sensitive communication skills; 2. modify protocols to consider language, culture and context; 3. should understand cultural patterns, meaning and values; 4. aware of own cultural convictions, context and meanings attached",Handboek culturele psychiatrie en psychotherapie,Might or might not,"differences in communication leads to miscommunication, inappropriate care and dangerous situations","adapt conversation to language, culture and context of asylum seekers","awareness of personal beliefs, attitudes, values and motivations and how it affects communication"
+2024-01-09T09:37:47Z,2024-01-09T10:00:59Z,IP Address,83.232.59.237,100,1391,TRUE,2024-01-09T10:01:00Z,R_2ajHwHB2KQfTEQh,NA,52.3795,4.8777,email,EN,Yes,Academic researcher,NA,Nexus of mental health & migration and asylum,NA,5,Europe,Yes,No,"'- be knowledgeable about how culture can shape the perception and expression of mental health problems
+- inquire about cultural explanations of problems
+- inquire about barriers to mental health conversations
+- consider pre--, peri-, and post-migration stressors and their impact on mental health","Cultural concepts of distress (DSM-5; APA, 2023)
+conceptual framework for cultural adaptation (Heim & Kohrt, 2019)",Probably yes,"'- culture can shape the perception and expression of mental health problems
+- pre-, peri-, and post-migration stressors can impact mental health","'- take the role of the listener and understand mental health from the asylum seeker's perspective
+- unite the asylum seeker's perspective and experiences with the services available in the host country","'- awareness of own cultural beliefs/explanations
+- curiosity in understanding the asylum seeker's perspective and experience"
+2024-01-08T08:00:44Z,2024-01-09T12:47:49Z,IP Address,84.199.123.252,100,103625,TRUE,2024-01-09T12:47:50Z,R_38GkNf3FIHkDfuE,NA,50.871,4.3356,email,EN,Yes,Practitioner,NA,Nexus of mental health & migration and asylum,NA,4,Europe,Yes,No,"'- be supported.
+- have a platform to discuss the content of these conversations
+- have supervision
+- have formation on manifestations of stress and trauma, impact of background/life history and current context. 
+","'- contextual framework (cultural formulation interview)
+- cultural sensitive approach, cultural humility
+- mental health care in a broad multidisciplinary view: bio - psycho - social approach",Probably yes,"impact of trauma, barriers to healthcare, impact of stress, discrimination, loneliness, cultural bereavement. 
+Alarming signs of depression, psychosis, drug use, ptsd and where to orientate these asylum seekers.
+
+
+","'- work with interpreters.
+- some non-violent communication skills
+- deal with a feeling of powerlessness
+- deal with the fact there can be no (immediate) solutions
+- try to see the sadness/frustration together with the opportunities / forces
+- look for help if needed","willingness to listen, curiosity, willingness to understand, to look together for the possibilities/opportunities, be conscient and honest on their limits and the limits of the system. 
+"
+2024-01-09T15:22:31Z,2024-01-09T15:56:56Z,IP Address,67.44.208.6,100,2065,TRUE,2024-01-09T15:56:57Z,R_3qmcPE9RXGXyClP,NA,35.2296,-80.843,email,EN,Yes,Consultant,NA,Nexus of mental health & migration and asylum,NA,30,North America,Yes,Yes,"1. reflect on how their own cultural knowledge, views, and practical approaches may be limited with asylum seekers from diverse cultural backgrounds;
+2. understand that people from different cultures may have different idioms of distress and modalities for reducing the distress;
+3. avoid imposing their own views and approaches on asylum seekers;
+4. appreciate that terms such as 'mental health' and 'mental disorder' can be stigmatizing for people from other cultures;
+5. be able to listen respectfully to asylum seekers, without judging them;
+6. be aware of how fearful asylum seekers may be of talking openly since they may face discrimination, detainment, denial of entry, deportation, family separation and related problems;
+7. understand where the asylum seekers have been, what kinds of situations they were likely exposed to, and what they see as their top priorities;
+8. be able to establish trust with people from diverse cultures;
+9. use psychological first aid (PFA);
+10. understand how mental health problems can be aggravate by problems such as discrimination, poor access to health care, shelter and other necessities, and poor coordination among different services for asylum seekers;
+11. engage in self-care and well-being among helpers;
+12. understand the importance of keeping families together in a safe place;
+13. know how to help prevent gender-based violence and child protection violations;
+14. be humble and supportive;
+15. respect the Do No Harm imperative.",IASC Guidelines on Mental Health and Psychosocial Support in Emergency Settings,Probably yes,"1. Technical terms such as 'mental health' can be highly stigmatizing;
+2. It is highly important to understand how the asylum seeker understands their situation, what they see as their main problems, and what they see as most helpful;
+3. Western derived categories and interventions may not be appropriate or may not fit the context and cultures present very well;
+4. A holistic, multi-sectoral approach is crucial and that discussions may need to consider economic, health, food-related and other issues tha interrelated with mental health;
+5. A cultural approach begins with deep listening and humility;
+6. It is possible to blend insights and approaches from diverse cultures in ways that promote well-being;
+7. Peer and informal social supports (such as talking with other aylum seekers from your own country or region) can promote well-being;
+8. People who differ along lines of gender and developmental stage may have very different issues and may need different kinds of supports;
+9. Many asylum seekers are from collectivist societies and individualized approaches may be highly inappropriate;
+10. Knowledge and power are richly interconnected, and Western pockets of power such as psychiatric associations have often disavowed the importance of culture in understanding and addressing mental health and have often denigrated cultural beliefs and practices as mere 'folklore' or 'superstition' that Western science needs to correct;
+11. They are not counselors or mental health specialists and need to understand their role clearly.
+",This was discussed above..,This was discussed above.
+2024-01-09T21:00:21Z,2024-01-09T21:19:28Z,IP Address,79.161.163.123,100,1147,TRUE,2024-01-09T21:19:30Z,R_2K1cV6DEQMKCa2J,NA,60.4853,5.2577,email,EN,Yes,Lecturer/Trainer,NA,Migration and asylum,NA,20,Europe,No,No,"1. be aware of their own culture
+2.  be culturally humble
+3. be culturally sensitive
+4. be culturally tolerant
+5. be aware of one's ethnocentrism
+",Intercultural sensitivity of Milton Bennett,Probably yes,"1. their own cultural biases can impact negatively on the clients
+2. ethnocentrism can hinder the work
+3. lack of cultural humility may be seen as arrogance 
+","1.be empathetic
+2. have the ability to listen with genuine interest
+3. have the ability to allowing client to speak without interruption
+4. the ability to work together with the client and listen to their needs and concerns
+","1. their own uncertainties
+2. their attitudes towards cultural differences
+3. their reasons for engaging in this kind of profession"
+2024-01-10T01:27:56Z,2024-01-10T20:39:50Z,IP Address,71.176.244.10,100,69113,TRUE,2024-01-10T20:39:51Z,R_6TFbt1IIhPQhRzI,NA,37.7252,-77.5546,email,EN,Yes,Academic researcher,NA,Nexus of mental health & migration and asylum,NA,21,North America,Yes,No,"1) Engage in comprehensive training focusing on cultural competence and sensitivity to enhance their understanding of diverse cultural norms and values;
+2) Demonstrate a deep respect and understanding of the varied cultural, religious, and social backgrounds that asylum seekers come from, acknowledging the impact these factors can have on mental health;
+3) Utilize professional interpreters or employ staff fluent in multiple languages to overcome language barriers, ensuring clear and empathetic communication;
+4) Foster a safe and welcoming environment that encourages trust and rapport, making asylum seekers feel valued and understood;
+5) Develop an acute awareness of the specific traumas and stresses that asylum seekers may have encountered, including the impact of displacement and acculturation stress;
+6) Actively collaborate with community leaders and cultural informants to gain insights into the unique needs and viewpoints of the asylum seeker community;
+7) Clearly communicate the confidentiality and objectives of the mental health services provided, establishing transparency and trust;
+8) Facilitate connections with relevant community resources and support networks, aiding in the integration and social support of asylum seekers;
+9) Commit to ongoing professional development to stay abreast of the evolving landscape of transcultural mental health care; and 
+10) Implement culturally tailored mental health assessment tools and therapeutic interventions that are sensitive to the cultural nuances of the asylum seekers.","IASC's MHPSS guidelines (but my work is not primarily with asylum seekers, but refugees in resettlement or in urban displacement)",Might or might not,"1) The cultural stigma associated with mental health varies considerably, influencing how individuals from different backgrounds perceive and engage in discussions about mental health issues; 2) Establishing trust and rapport is paramount, especially considering that asylum seekers may harbor a deep-seated mistrust of authorities or institutional systems due to their previous experiences; 3) The expression of mental health symptoms can vary dramatically across different cultures; recognizing these variations is vital in providing appropriate care, etc.","1) Communicate effectively across language and cultural barriers, possibly by utilizing translation services or developing multilingual skills; 2) Demonstrate empathy and active listening skills to understand the unique experiences and perspectives of asylum seekers; 3) Apply cultural competence in their practice, recognizing and respecting the diverse cultural backgrounds of the individuals they serve; 4) Identify and appropriately respond to signs of trauma and stress, which are common in asylum seekers due to their experiences; 5) Employ de-escalation techniques and manage emotional responses in a sensitive and effective manner; 6) 
+Utilize culturally appropriate assessment tools and therapeutic techniques tailored to the individual's background and needs, etc.",1) commitment to cultural sensitivity and humility; 2) empathy and compassion; 3) belief in the dignity and worth of every individual; 4) motivation to advocate
+2024-01-12T17:05:11Z,2024-01-12T17:21:08Z,IP Address,130.237.96.132,100,957,TRUE,2024-01-12T17:21:09Z,R_3aWxv8jimb1pcvW,NA,59.3241,18.0517,email,EN,Yes,Academic researcher,NA,Nexus of mental health & migration and asylum,NA,30,Europe,Yes,Yes,"have in mind your ""own rucksack"" and work for equity besides background. To use ethical principles and consider that you do not misuse your power",ADAPT model (D Silove) and Co-creation (Leask et al),Definitely yes,Studies regarding Evidence-based knowledge and clinical experience,"build up trust, give relevant information, needbased, transparency","Knowledge, skills and competence"
+2024-01-12T23:32:04Z,2024-01-13T00:28:34Z,IP Address,99.227.62.251,100,3389,TRUE,2024-01-13T00:28:35Z,R_6QX2ScIiQEJEu9a,NA,43.8113,-79.188,email,EN,Yes,Practitioner,NA,Nexus of mental health & migration and asylum,NA,30,North America,Yes,No,"1. have an open mind; 2. be aware of their own biases; 3. be aware of differences in manifestations of distress; 4. look beyond Western psychological concepts; 5. be aware of category fallacy (Arthur Kleinman); 6. keep in mind language nuances; 7. know that things can get lost in translation; 8. pay attention to non-verbal communication; 9. know that majority of the cultures in the world are high-context; 10. remember that psych and soma are not seen as separate from each other in many cultures; 11. know that many cultures do not ""psychologize"" their mental health issues; 12. ask open ended questions; 13. not shift the focus away from what is emphasized by the asylum seekers and seen as priority; 14. should informally assess their level of acculturation with host culture; 15. know that their understanding of mental health concepts can be different; 16. use and interpret test results (if used) with caution.",I am unable to point to an existing framework or set of guidelines that I primarily draw upon in my own work. The Refugee Mental Health Framework which I developed with two other colleagues is based on our understanding of working with refugees and immigrants fleeing war.,Probably yes,"I have already included these in the previous question. My apologies, did not know there were specific questions differentiating knowledge, skills and other personal factors. 
+I can add here:
+...there is not much evidence-based knowledge that exists in the field.
+...emotional distress is not always verbally expressed in majority of non-Western cultures.
+...stigma can play a role in how much information is disclosed.
+...what is traumatic can be very different from culture to culture.  
+...there is an interplay of factors that can influence the situation of the asylum seekers at multiple levels, including program based services, systemic challenges, and political influences.","I have already included these in the previous question. My apologies, did not know there were specific questions differentiating knowledge, skills and other personal factors. 
+I can add:
+understand and define their role, not as saviors or educators, but to appreciate the wealth of knowledge and skills that the refugees bring, their resilience and natural ways of coping. To help the asylum seekers invest on and preserve their own strength. 
+Set the priorities right, based on the needs of the asylum seekers and their world views.","I have already included these in the previous question. My apologies, did not know there were specific questions differentiating knowledge, skills and other personal factors. 
+I can add:
+...ability to differentiate between sympathy and empathy
+...ability to take into consideration that one's own beliefs, attitudes and values can be different from those of the different asylum seeker groups."
+2024-01-15T07:10:08Z,2024-01-15T08:18:30Z,IP Address,78.101.149.183,100,4101,TRUE,2024-01-15T08:18:31Z,R_2q3zSIaOs4x6tYB,NA,25.2925,51.5321,email,EN,Yes,Consultant,NA,Mental health,NA,26,Australia/Oceania,Yes,Yes,"Understand the current circumstances of asylum seekers.
+Have general understanding of the background of where the asylum seeker is coming from
+","UN conflict guidelines 
+Existing local guidelines",Might or might not,Asylum seekers can be scared to volunteer information initially; might have had extra trauma during their journey to reach asylum place; fearful about the fate of missing relatives or family members; mental health issues can present with physical complaints that are more socially/culturally acceptable.,Be patient; resilient; sympathetic and helpful,Willingness to help; professionalism; set realistic expectations; follow through what they promised to do; show good understanding of where to direct asylum seekers for extra help
+2024-01-08T09:59:40Z,2024-01-15T08:42:21Z,IP Address,147.161.246.162,100,600161,TRUE,2024-01-15T08:42:22Z,R_2lE6605fvAjQVdj,NA,47.3682,8.5671,email,EN,Yes,Other (please specify),head of the MHPSS sector of a UN Agency,Nexus of mental health & migration and asylum,NA,22,Europe,Yes,Yes,"be culturally aware about the basics of the mainstream culture of the people they are interacting with, but also able not to stigmatize individuals based on the cultural elements they (the frontline workers) have learned, since each indovidual can have a different relation with the mainstream culture of their country",the IOM-EU traninings for Security and Health workers on Mental health and population mobility. the IOM internal trainings and videos; the cultural diversity management framewrok and tools of the MInkowska Center in Paris.,Definitely yes,"a) idioms of mental health differ
+b) for most people in the world, mental health refers to the spiritual and not the biological or biopsychological sphere
+c) they should not do harm bringing the conversation to a space they do not have the capacity to control/facilitate
+d) that some behaviours require immediate professional follow up in a life saving fashion
+e) that experinces of suffering are unique beyond cultural constructs
+f) their own cultural biases and mental health biases","listen actively,
+give undivided attention
+be emphatic and not sympathic
+rephrase and validate
+know their limits
+respond to immediate concerns
+know how to provide PFA and
+how to work with translators","empathy
+undivided attention
+willingness to listen
+drive to relate
+capacity to overcome biases and microbiases
+openess to other cultures
+interest in other cultures"
+2024-01-15T09:28:55Z,2024-01-15T09:44:56Z,IP Address,165.225.80.242,100,960,TRUE,2024-01-15T09:44:57Z,R_7yrrdwMIvhuy9hi,NA,51.5026,-0.066,email,EN,Yes,Practitioner,NA,Mental health,NA,15,Asia,Yes,No,belong to the asylum seekers culture or have experience working with asylum seekers and preferably know the asylum seekers language.,"IASC MHPSS minimum standards, SPHERE and my own organization quality and ethical guidelines",Probably yes,"know the culture background, values and habits (cultural sensitivity) understand and preferably speak the language","Be adaptable in communication styles, taking into consideration variations in non-verbal cues and expressions. Show empathy and practice active listening. Understand the mental health specificities (stigma related to MH, meaning of feeling well or unwell) of the culture, understand impact of trauma on mental health and be able to provide recognize and respond or refer to signs of trauma
+
+
+","Empathy and the humanitarian values (independence, humanity, impartiality, and neutrality)"
+2024-01-15T09:03:18Z,2024-01-15T11:22:57Z,IP Address,80.189.21.4,100,8378,TRUE,2024-01-15T11:22:58Z,R_5pSo8zXOsfCxZIz,NA,51.5788,-0.1235,email,EN,Yes,Practitioner,NA,Mental health,NA,20,Europe,Yes,No,"1) Ensure that you have an interpreter with whom you can also consult about meanings and misunderstandings;
+2) Search for ways to make a connection with the person to try to create a context for a conversation;
+3) Ideally have some knowledge of the person's culture of origin and the context from which they fled / left, and in more general terms the hazards of the journey they would have undertaken prior to the conversation if at all possible
+4) Have acquired knowledge of the person's/community's cultural conception of mental health - how persons communicate distress;
+5) Keep in mind that a person may have had to tell their story many times over and at times in hostile circumstances;
+6) Keep in mind that it is more helpful to focus on the effects of what someone has experienced / endured than have someone recount what they have experienced;
+7) Pay attention to mind-body connections. Asylum seekers often have problems with sleeping and eating due to patterns built up during their journeys and would benefit from collaboration around how to manage these;
+8) Explore what has sustained the person throughout their experiences and try to identify with the person how they might continue to use these resources and build on them;
+9) Find ways to enable a person to sustain their relationship with others. For unaccompanied minors these are often those with whom they have made the journey who have become like family;
+10) Keep in mind that sometimes very brief mindfulness practices such as focusing on your breath while tracing your hand can help someone take some control of their panic or fear;
+11) Realise / acknowledge that there are spikes of acute anxiety around asylum applications and accomodation issues;
+12) Name injustices;
+13) Always keep the context in focus;
+14) Find ways to normalise responses to stress as some people carry a fear that they are going mad;
+
+","Narrative-systemic, liberation psychology and social justice approaches have been helpful.",Definitely yes,"1) distress can take many forms which are different in different cultures
+2) a sense of powerlessness is corrosive so if an asylum seeker can find a way to be effective in their own life even in a small way it can make a difference;
+3) even short therapeutic consultations can be significant. It is important to notice and identify significant moments especially in an extremely stressful context of overwhelming need
+4) it is crucial to think relationally and contextually
+","1) work collaboratively with interpreters and asylum seekers;
+2) follow an asylum seeker's feedback rather than your own 'plan' for a conversation;
+3) work at many levels (body-mind-context) and try to keep these connected
+4) become and stay aware of your own beliefs and assumptions to avoid imposing these on an asylum seeker
+5) keep in mind the power inequalities in the relationship which cannot be erased but may be mitigated in the relationship in a number of ways
+6) find ways in their personal-professional life to manage their sense of privilege which so often gets heightened in this work.","1) commitment to social justice and acknowledgment of the social injustices which the asylum seeker has experienced / is experiencing
+2) willingness to discuss their work and its dilemmas with colleagues / supervisors and to stay open to discovering the assumptions they carry to avoid having these shape the work
+3) ability to take care of themselves and see this as part of the work to sustain their capacity to do it
+4) ability to identify why they want to do this work and to develop self-reflexivity in the work"
+2024-01-15T11:44:44Z,2024-01-15T11:55:18Z,IP Address,129.177.198.47,100,633,TRUE,2024-01-15T11:55:19Z,R_41qoVspNApmcL1D,NA,60.3799,5.3275,email,EN,Yes,Academic researcher,NA,Nexus of mental health & migration and asylum,NA,7,Europe,Yes,No,"1. Be able to provide a culturally safe environment.
+2. Actively collaborate with Peer Workers sharing the background and lived experience of the target population.
+3. Safeguard human rights for asylum seekers.
+4. Be trained in scalable psychological interventions (ex. PFA, SH+, PM+)","IASC Guidelines on Mental Health and Psychosocial Support in Emergency Settings, 2007",Probably yes,"1. People do not need to be pathologized or ""idealized"" in their respective settings.
+","1. Have foundational helping skills.
+2. Use concrete tools in their work that can guide their practice. 
+3. Receive supervision and ongoing training that should be culturally adapted to the population they provide help to.
+4. Know the basic legal system and be alert to identify violations of human rights in different levels.",1. Cultural awareness and cultural humility when interacting with people from diverse backgrounds. This should shape the attitude of the frontline workers and help them prioritize the needs of their target population.

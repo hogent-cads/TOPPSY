@@ -27,17 +27,15 @@ id3 <- 'SV_d4LyS5pyp0DwhXo'
 
 # get survey data DELPHI 1
 df1 <- fetch_survey(surveyID = id1, verbose = FALSE, save_dir = "data/raw")  
+df1_clean <- df1 |> 
+  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail')) 
+
+saveRDS(df1_clean, file = "data/clean/Delphi1.rds")
+xlsx::write.xlsx(df1_clean, file = "data/clean/Delphi1.xlsx")
 ```
 
 ```{r}
-df1 <- read_rds(file = "data/raw/SV_8pGFdxuCIijJyWW.rds") |> 
-  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail'))
-
-saveRDS(df1, file = "data/clean/Delphi1.rds")
-xlsx::write.xlsx(df1, file = "data/clean/Delphi1.xlsx")
-```
-
-```{r}
+df1 <- read_rds(file = "data/clean/Delphi1.rds") 
 
 ```
 
@@ -62,6 +60,7 @@ n_finished <-  df1 |>
 ```
 
 # Survey letrics
+
 Number of responses: `r n1`
 
 Number of complete responses: `r n_finished`
@@ -134,7 +133,7 @@ my_label <- function(var) {
 }
 ```
 
-##  Q2
+## Q2
 
 ```{r}
 label <- my_label(df1$Q2)
