@@ -59,7 +59,7 @@ n_finished <-  df1 |>
 
 ```
 
-# Survey letrics
+# Survey metrics
 
 Number of responses: `r n1`
 
