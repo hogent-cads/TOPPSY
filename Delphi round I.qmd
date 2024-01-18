@@ -315,7 +315,7 @@ df1 |>
 label <- my_label(df1$Q13)
 df1 |> 
   mutate(row_n = row_number()) |>
-  select(row_n, ResponseId, Q12) |>
+  select(row_n, ResponseId, Q13) |>
   kable("html", col.names = c('Response', 'ResponseId', label) , align = 'l') |> 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
