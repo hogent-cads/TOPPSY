@@ -1,5 +1,5 @@
 ---
-title: "Delphi Round 1"
+title: "Delphi Round 1 - Incomplete responses"
 author: "CADS - dr. Willem De Keyzer"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 format: html
@@ -36,7 +36,7 @@ xlsx::write.xlsx(df1_clean, file = "data/clean/Delphi1.xlsx")
 
 ```{r}
 df1 <- read_rds(file = "data/clean/Delphi1.rds") |> 
-  filter(Progress == 100)
+  filter(Progress != 100)
 ```
 
 ```{r}
@@ -53,9 +53,7 @@ last_enddate <- df1 |>
   summarise(max(EndDate)) |>
   pull() 
 
-n_finished <-  df1 |> 
-  count(Finished) |> 
-  pull()
+n_complete <-  0
 
 ```
 
@@ -63,7 +61,7 @@ n_finished <-  df1 |>
 
 Number of responses: `r n1`
 
-Number of complete responses: `r n_finished`
+Number of complete responses: `r n_complete`
 
 First response: `r first_enddate`
 
