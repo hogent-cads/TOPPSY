@@ -1,0 +1,434 @@
+---
+title: "Delphi Round 2"
+author: "CADS - dr. Willem De Keyzer"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+format: html
+toc: true
+editor: visual
+execute:
+ echo: false
+ warning: false
+---
+
+```{r}
+
+library(tidyverse)
+library(qualtRics)
+library(kableExtra)
+
+# list all TOPPSY survey id's
+id1 <- 'SV_8pGFdxuCIijJyWW'
+id2 <- 'SV_5BjwPDdPP9dJTF4'
+id3 <- 'SV_d4LyS5pyp0DwhXo'
+
+theme_set(theme_light(base_family = "IBM Plex Sans"))
+theme_update(plot.title.position = "plot",
+      plot.title = element_text(face = "bold"))
+
+```
+
+```{r}
+#| eval: FALSE
+
+# get survey data DELPHI 2
+df2 <- fetch_survey(surveyID = id2, verbose = FALSE, save_dir = "data/raw", force_request = TRUE)  
+df2_clean <- df2 |> 
+  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail')) 
+
+saveRDS(df2_clean, file = "data/clean/Delphi2.rds")
+xlsx::write.xlsx(df2_clean, file = "data/clean/Delphi2.xlsx")
+```
+
+```{r}
+df2 <- read_rds(file = "data/clean/Delphi2.rds") 
+  # |> 
+  # filter(Progress == 100)
+```
+
+```{r}
+# get some metrics
+n1 <- df2 |> 
+  summarise(n = n()) |>
+  pull() 
+
+first_enddate <- df2 |> 
+  summarise(min(EndDate)) |>
+  pull() 
+
+last_enddate <- df2 |> 
+  summarise(max(EndDate)) |>
+  pull() 
+
+n_finished <-  df2 |> 
+  count(Finished) |> 
+  filter(Finished == TRUE) |> 
+  pull()
+
+```
+
+# Survey metrics
+
+Number of responses: `r n1`
+
+Number of complete responses: `r n_finished`
+
+First response: `r first_enddate`
+
+Last response: `r last_enddate`
+
+# Data dictionary
+
+```{r}
+
+# Function to create a data dictionary
+
+create_data_dictionary <- function(dataframe) {
+  # Get basic information
+  variable_names <- names(dataframe)
+  variable_types <- sapply(dataframe, function(x) class(x)[1])
+  variable_labels <- sapply(dataframe, function(x) sjlabelled::get_label(x))
+
+  # Check if all vectors have the same length
+  if (length(variable_names) != length(variable_types) || length(variable_names) != length(variable_labels)) {
+    stop("Mismatch in the lengths of variables, types, and labels.")
+  }
+ 
+  # Create the initial data frame
+  dictionary <- data.frame(Variable = variable_names, 
+                           Type = variable_types, 
+                           Label = variable_labels, 
+                           stringsAsFactors = FALSE)
+
+  # Add summary statistics
+  dictionary$Summary <- sapply(dataframe, function(x) {
+    if (is.numeric(x)) {
+      paste0("Mean=", mean(x, na.rm = TRUE), ", Min=", min(x, na.rm = TRUE), ", Max=", max(x, na.rm = TRUE))
+    } else if (is.factor(x) || is.character(x)) {
+      paste0("Categories=", length(unique(x)))
+    } else {
+      NA
+    }
+  })
+ 
+  rownames(dictionary) <- NULL #remove rownames
+  return(dictionary)
+}
+
+# Create data dictionary
+data_dictionary <- create_data_dictionary(df2)
+
+# shorten the label names
+data_dictionary <- data_dictionary |>
+  mutate(Label = paste(str_extract(Label, "^([^:]*)"), str_extract(Label, "- (.*)" )))
+
+# print the data dictionary
+data_dictionary |> 
+  kable("html") |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+# update the label attribute with the shorter notations
+df2 <- df2 |> 
+  sjlabelled::set_label(data_dictionary$Label)
+
+```
+
+# Summary results
+
+```{r}
+# set my kable function
+my_kable <- function(x) {
+    x |> 
+    kable("html", col.names = c(label , "Count"), align = 'l') |> 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  }
+
+my_kable_prop <- function(x) {
+    x |> 
+    kable("html", align = 'l') |> 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  }
+
+# set my label function
+my_label <- function(var) {
+  sjlabelled::get_label(var)
+}
+
+# create vector of questions variable names
+get_question_names <- function(df) {
+  # Pattern to match variable names starting with Q2 to Q13
+  pattern <- "^Q(2|3|4|5|6|7|8|9|10|11|12|13)"
+  
+  # Use grep to find matches and return the names of the matching variables
+  matching_names <- names(df)[grep(pattern, names(df))]
+  
+  return(matching_names)
+}
+question_names <- get_question_names(df2)
+
+# create a vector of text questions variable names
+get_text_question_names <- function(df) {
+  # Pattern to match variable names ending with _TEXT
+  pattern <- "_TEXT$"
+  
+  # Use grep to find matches and return the names of the matching variables
+  matching_names <- names(df)[grep(pattern, names(df))]
+  
+  return(matching_names)
+}
+
+text_question_names <- get_text_question_names(df2)
+
+# create a vector of non-text questions variable names
+
+non_text_question_names <- setdiff(question_names, text_question_names)
+
+# list questions per CLUSTER number based on label attribute
+
+get_variables_by_cluster <- function(df) {
+  # Initialize a list to store vectors of variable names, grouped by cluster
+  clusters <- list()
+  
+  # Regular expression pattern to extract cluster categories from labels
+  cluster_pattern <- "CLUSTER\\s\\d+"
+  
+  # Iterate over each variable in the dataframe
+  for (var_name in names(df)) {
+    # Get the label attribute of the current variable
+    label <- attr(df[[var_name]], "label")
+    
+    # Check if the label contains a cluster pattern
+    if (!is.null(label) && grepl(cluster_pattern, label)) {
+      # Extract the cluster category from the label
+      cluster_category <- regmatches(label, regexpr(cluster_pattern, label))
+      
+      # If this cluster category is not already a key in the clusters list, add it
+      if (!cluster_category %in% names(clusters)) {
+        clusters[[cluster_category]] <- c()
+      }
+      
+      # Append the current variable name to the appropriate cluster vector
+      clusters[[cluster_category]] <- c(clusters[[cluster_category]], var_name)
+    }
+  }
+  
+  return(clusters)
+}
+
+clusters <- get_variables_by_cluster(df2)
+
+
+```
+
+## Agreement per cluster - plot
+
+```{r fig.width=12, fig.height=10, dpi=300}
+
+# Create a variable-to-cluster mapping
+var_to_cluster <- unlist(lapply(names(clusters), function(cluster_name) {
+  setNames(rep(cluster_name, length(clusters[[cluster_name]])), clusters[[cluster_name]])
+}))
+
+# transpose counts for non-text questions
+df2_long_non_text <- df2 |> 
+  select(non_text_question_names) |> 
+  pivot_longer(everything(), names_to = "variable", values_to = "value") |> 
+  filter(!is.na(value)) 
+
+# Augment your data frame to include the cluster information
+df2_long_non_text <- df2_long_non_text |>
+  mutate(cluster = var_to_cluster[as.character(variable)])
+
+df2_long_non_text <- df2_long_non_text |> 
+  group_by(variable, cluster) |>
+  count(value) |>
+  mutate(percent = n / sum(n)) |>
+  ungroup() |>
+  group_by(variable) |>
+  mutate(max_percent = max(percent)) |>
+  ungroup() |>
+  mutate(variable = as_factor(variable)) |>
+  mutate(variable = fct_reorder(variable, max_percent)) |>
+  filter(value == "I agree") |> 
+  mutate(
+   cluster = as_factor(cluster),
+   cluster = fct_reorder(cluster, as.numeric(gsub("CLUSTER ", "", cluster))))
+
+
+
+# Plot with facet_wrap by cluster
+ggplot(df2_long_non_text, aes(x = variable, y = percent, fill = value)) +
+  geom_col() +
+  geom_hline(yintercept = 0.7, color = "midnightblue", linetype = "dashed") +
+  coord_flip() +
+  labs(x = "Question", y = "Percent agreement", fill = "Response") +
+  theme(legend.position = "bottom") +
+  facet_wrap(~ cluster, scales = "free_y")  # Facet by cluster
+
+
+
+
+```
+
+
+
+```{r}
+
+my_counts <- function(df, var_name) {
+  label <- my_label(df[[var_name]])
+  df |> 
+    count(.data[[var_name]]) 
+}
+
+my_proportions <- function(df, var_name){
+  missing <- df |> 
+  filter(is.na(.data[[var_name]])) |> 
+  count() |> 
+  pull()
+  
+  result <- df |> 
+  count(.data[[var_name]]) |> 
+  mutate(`valid prop` = round(n/(sum(n)-missing), 2)) |> 
+  mutate(`valid prop` = case_when(
+           is.na(.data[[var_name]]) ~ "-",
+           TRUE  ~ as.character(`valid prop`))
+         ) 
+  return(result)
+  }
+
+
+# test my_counts
+# my_counts(df2, "Q2_1") |>
+#   my_kable()
+
+# test my_proportions
+# my_proportions(df2, "Q2_1") |>
+  # my_kable_prop()
+
+
+```
+
+
+## Counts and proportions of non text questions per cluster
+
+```{r results='asis'}
+# calculate percentages per non-text question
+
+df2_percent <- df2_long_non_text |> 
+  group_by(variable, cluster) |>
+  count(value) |>
+  mutate(percent = n / sum(n)) |>
+  ungroup() 
+
+df2_percent |> 
+  arrange(cluster, variable) |>
+  relocate(cluster, .before = variable) |>
+  xlsx::write.xlsx("data/clean/Delphi2_percentages.xlsx")
+
+
+# for (cluster_name in names(clusters)) {
+#   cat("\n## ", cluster_name, "\n\n")
+# 
+#   # Access each inner cluster list
+#   inner_cluster <- clusters[[cluster_name]]
+# 
+#   # Loop through the elements (values) of the inner cluster
+# for (var in inner_cluster) {
+#   label <- my_label(df2[[var]]) # Assuming my_label is a function that returns labels for your variables
+#   results <- df2_percent %>%
+#     filter(variable == var) %>%
+#     select(-variable)
+# 
+#   cat(label, "\n") # Print the label for the table
+#   print(kable(results, format = "html", caption = label)) # Print the table
+#   }
+# }
+
+
+
+for (cluster_name in names(clusters)) {
+  cat("\n### ", cluster_name, "\n\n")
+  
+  # Access each inner cluster list
+  inner_cluster <- clusters[[cluster_name]]
+  
+  # select only non-text questions from cluster
+  matches <- inner_cluster %in% non_text_question_names
+  
+  inner_cluster_non_text <- inner_cluster[matches]
+  
+  # Loop through the elements (values) of the inner cluster
+  for (var in inner_cluster_non_text) {
+     # label <- my_label(df[[var_name]])
+    # create results summarizing all counts and valid (non-NA) proportion
+    
+    results <- my_proportions(df2, var)
+    print(my_kable_prop(results))
+    cat("\n")
+  }
+}
+
+
+
+
+```
+
+
+```{r results='asis' }
+
+# Iterate over clusters - OLD VERSION
+
+# for (cluster_name in names(clusters)) {
+#   cat("\n## ", cluster_name, "\n\n")
+#   
+#   # Access each inner cluster list
+#   inner_cluster <- clusters[[cluster_name]]
+#   
+#   # select only non-text questions from cluster
+#   matches <- inner_cluster %in% non_text_question_names
+#   
+#   inner_cluster_non_text <- inner_cluster[matches]
+#   
+#   # Loop through the elements (values) of the inner cluster
+#   for (var in inner_cluster_non_text) {
+#     label <- my_label(df2[[var]])
+#     # create results summarizing all counts and valid (non-NA) proportion
+#     
+#     results <- my_counts(df2, var)
+#     print(my_kable(results))
+#     cat("\n")
+#   }
+# }
+
+```
+
+## Text responses per cluster
+
+```{r results='asis'}
+
+# Iterate over clusters
+
+for (cluster_name in names(clusters)) {
+  cat("\n### ", cluster_name, "\n\n")
+
+  # Access each inner cluster list
+  inner_cluster <- clusters[[cluster_name]]
+
+  # select only text questions from cluster
+  matches <- inner_cluster %in% text_question_names
+
+  inner_cluster_text <- inner_cluster[matches]
+
+# Loop through the variables in inner_cluster_text
+for (var in inner_cluster_text) {
+  # Filter out NA values for the current variable
+  results <- df2 %>%
+    filter(!is.na(.data[[var]])) %>%
+    select(.data[[var]]) # Ensure only the current variable is selected
+    print(kable(results, col.names = c(var)) |> 
+          kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")))
+  }
+}
+  
+
+```
+
