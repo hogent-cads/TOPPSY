@@ -33,8 +33,9 @@ theme_update(plot.title.position = "plot",
 # get survey data DELPHI 2
 df2 <- fetch_survey(surveyID = id2, verbose = FALSE, save_dir = "data/raw", force_request = TRUE)  
 df2_clean <- df2 |> 
-  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail')) 
-
+  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail')) |> 
+  filter(!ExternalReference %in% c("panel"))
+  
 saveRDS(df2_clean, file = "data/clean/Delphi2.rds")
 xlsx::write.xlsx(df2_clean, file = "data/clean/Delphi2.xlsx")
 ```
@@ -311,17 +312,17 @@ my_proportions <- function(df, var_name){
 ## Counts and proportions of non text questions per cluster
 
 ```{r results='asis'}
-# calculate percentages per non-text question
 
-df2_percent <- df2_long_non_text |> 
-  group_by(variable, cluster) |>
-  count(value) |>
-  mutate(percent = n / sum(n)) |>
-  ungroup() 
+# df2_percent <- df2_long_non_text |> 
+#   group_by(variable, cluster) |>
+#   # count(value) |>
+#   mutate(percent = n / sum(n)) |>
+#   ungroup() 
 
-df2_percent |> 
+df2_long_non_text |> 
   arrange(cluster, variable) |>
   relocate(cluster, .before = variable) |>
+  select(-max_percent) |>
   xlsx::write.xlsx("data/clean/Delphi2_percentages.xlsx")
 
 
@@ -428,7 +429,17 @@ for (var in inner_cluster_text) {
           kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")))
   }
 }
-  
+
+
+df2 |> 
+  select(ResponseId, all_of(text_question_names)) |>
+  pivot_longer(-ResponseId, names_to = "variable", values_to = "value") |>
+  filter(!is.na(value)) |> 
+  mutate(cluster = var_to_cluster[as.character(variable)]) |> 
+  relocate(cluster, .before = variable) |>
+  arrange(cluster, variable) |>
+  xlsx::write.xlsx("data/clean/Delphi2_text.xlsx")
+
 
 ```
 
