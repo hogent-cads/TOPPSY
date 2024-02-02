@@ -270,8 +270,6 @@ ggplot(df2_long_non_text, aes(x = variable, y = percent, fill = value)) +
 
 ```
 
-
-
 ```{r}
 
 my_counts <- function(df, var_name) {
@@ -308,7 +306,6 @@ my_proportions <- function(df, var_name){
 
 ```
 
-
 ## Counts and proportions of non text questions per cluster
 
 ```{r results='asis'}
@@ -319,10 +316,30 @@ my_proportions <- function(df, var_name){
 #   mutate(percent = n / sum(n)) |>
 #   ungroup() 
 
+# create labels df
+
+non_text_labels <- df2 |> 
+  select(all_of(non_text_question_names)) |> 
+  my_label()
+
+non_text_labels_df <- data.frame(variable = non_text_question_names, label = non_text_labels)
+
+# Convert df2 to long format and filter out NA values
+df2_long_non_text <- df2 %>% 
+  select(non_text_question_names) %>% 
+  pivot_longer(everything(), names_to = "variable", values_to = "value") %>% 
+  filter(!is.na(value)) %>%
+  left_join(variable_labels, by = "variable")  # Join with variable labels
+
+# df2_long_non_text now includes an additional column 'label' with the associated labels
+
+
 df2_long_non_text |> 
   arrange(cluster, variable) |>
-  relocate(cluster, .before = variable) |>
   select(-max_percent) |>
+  left_join(non_text_labels_df, by = "variable") |> 
+  relocate(cluster, .before = variable) |>
+  relocate(label, .before = value) |> 
   xlsx::write.xlsx("data/clean/Delphi2_percentages.xlsx")
 
 
@@ -372,7 +389,6 @@ for (cluster_name in names(clusters)) {
 
 
 ```
-
 
 ```{r results='asis' }
 
@@ -442,4 +458,3 @@ df2 |>
 
 
 ```
-
