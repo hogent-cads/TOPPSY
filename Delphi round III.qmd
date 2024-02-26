@@ -2,7 +2,10 @@
 title: "Delphi Round 3"
 author: "CADS - dr. Willem De Keyzer"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-format: html
+format: 
+  html:
+    fig-width: 8
+    fig-height: 12
 toc: true
 editor: visual
 execute:
@@ -260,8 +263,128 @@ for (element in response_summary_prop) {
   cat(table_html, "<br><br>", sep = "")
 }
 
+```
 
- 
+```{r echo=FALSE}
+# aggregate the responses for Q2-Q13, calculate proportion
+df3_aggr <- df3 |> 
+  select(Q2.1:Q13.3) |> 
+  gather() |> 
+  rename(response = value, question = key) |>
+  count(question, response) |> 
+  drop_na() |> 
+  left_join(data_dictionary |> select(Variable, Label), by = c("question" = "Variable")) |>
+  mutate(response_cat = case_when(
+    str_starts(response, "I agree, but")  ~ "I agree when rephrased",
+    TRUE ~ response
+  )) |>
+  relocate(question, Label, response, response_cat, n)
+
+df3_aggr <- df3 |> 
+  select(Q2.1:Q13.3) |> 
+  gather() |> 
+  rename(response = value, question = key) |>
+  count(question, response) |> 
+  drop_na() |> 
+  left_join(data_dictionary |> select(Variable, Label), by = c("question" = "Variable")) |>
+  mutate(response_cat = case_when(
+    str_starts(response, "I agree, but")  ~ "I agree when rephrased",
+    TRUE ~ response
+  )) |>
+  relocate(question, Label, response, response_cat, n)
+
+# save as excel file
+xlsx::write.xlsx(df3_aggr, file= "data/clean/Delphi3_counts.xlsx")
+
+# create number vector based on vector with question_names, extract number before the dot
+
+question_numbers <- df3_aggr$question |> 
+  str_extract("\\d+") |> 
+  as.numeric()
+
+ordered_list <- set_names(question_numbers, names(df3_aggr$question))
+```
+
+## Plot of results
+
+```{r}
+
+df3_aggr |> 
+  mutate(question = fct_reorder(question, ordered_list, .desc = TRUE),
+         response_cat = fct_rev(response_cat)) |>
+  ggplot(aes(x = question, y = n, fill = response_cat)) +
+  geom_col(position = "fill") +
+  # facet_wrap(~response_cat) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(hjust = 1)) +
+  labs(title = "Responses to questions", x = " ", y = "Proportion", fill = "Response") + 
+  coord_flip() +
+  scale_fill_viridis_d(option = "D", direction = -1) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme(legend.position = "top")
+
+```
+
+## Plot of results sorted by proportion
+
+```{r}
+df3_aggr |> 
+  mutate(question = fct_reorder(question, n),
+         response_cat = fct_rev(response_cat)) |>
+  ggplot(aes(x = question, y = n, fill = response_cat)) +
+  geom_col(position = "fill") +
+  # facet_wrap(~response_cat) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(hjust = 1)) +
+  labs(title = "Responses to questions", x = " ", y = "Proportion", fill = "Response") + 
+  coord_flip() +
+  scale_fill_viridis_d(option = "D", direction = -1) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme(legend.position = "top") 
+  
+  
+
+```
+
+```{r eval=FALSE}
+# create stacked bar plot
+df3_aggr |> 
+  mutate(question = fct_reorder(question, ordered_list, .desc = TRUE)) |>
+  # mutate(question = fct_reorder(question, n, .desc = TRUE)) |>
+  ggplot(aes(x = question, y = n, fill = response_cat)) +
+  geom_col() +
+  facet_wrap(~response_cat) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Responses to questions", x = "Question", y = "Count", fill = "Response") + 
+  coord_flip() +
+  scale_fill_viridis_d(option = "D")
+
+df3_aggr |> 
+  mutate(question = fct_reorder(question, ordered_list, .desc = TRUE)) |>
+  ggplot(aes(x = question, y = n, fill = response_cat)) +
+  geom_col() +
+  facet_wrap(~response_cat) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Responses to questions", x = "Question", y = "Count", fill = "Response") + 
+  coord_flip() +
+  scale_fill_viridis_d(option = "D")
+
+# change to proportional plot
+
+
+# create heatmap
+df3_aggr |> 
+  mutate(question = fct_reorder(question, n, .desc = TRUE)) |>
+  ggplot(aes(x = question, y = response_cat, fill = n)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  theme_minimal() +
+  labs(title = "Responses to questions", x = " ", y = "Response", fill = "Count") + 
+  coord_flip()
+
+
 ```
 
 
