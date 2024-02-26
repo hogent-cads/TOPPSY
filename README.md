@@ -14,7 +14,7 @@
 - Proportions of responses for each question are available [here](data/clean/Delphi2_percentages.xlsx)
 - Text responses for each question are available [here](data/clean/Delphi2_text.xlsx)
 
-[Delphi round III](Delpi round III.html) (Report)
+[Delphi round III](Delphi round III.html) (Report)
 
 - Round III data (xlsx) is available [here](data/clean/Delphi3.xlsx) 
 
