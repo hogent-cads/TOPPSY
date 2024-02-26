@@ -17,4 +17,5 @@
 [Delphi round III](Delphi round III.html) (Report)
 
 - Round III data (xlsx) is available [here](data/clean/Delphi3.xlsx) 
+- Counts of responses for each question are available [here](data/clean/Delphi3_counts.xlsx)
 
