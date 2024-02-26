@@ -1,0 +1,267 @@
+---
+title: "Delphi Round 3"
+author: "CADS - dr. Willem De Keyzer"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+format: html
+toc: true
+editor: visual
+execute:
+ echo: false
+ warning: false
+---
+
+```{r}
+
+library(tidyverse)
+library(qualtRics)
+library(kableExtra)
+
+# list all TOPPSY survey id's
+id1 <- 'SV_8pGFdxuCIijJyWW'
+id2 <- 'SV_5BjwPDdPP9dJTF4'
+id3 <- 'SV_d4LyS5pyp0DwhXo'
+
+theme_set(theme_light(base_family = "IBM Plex Sans"))
+theme_update(plot.title.position = "plot",
+      plot.title = element_text(face = "bold"))
+
+```
+
+```{r}
+#| eval: FALSE
+
+# get survey data DELPHI 3
+df3 <- fetch_survey(surveyID = id3, verbose = FALSE, save_dir = "data/raw", force_request = TRUE)  
+df3_clean <- df3 |> 
+  select(-c('RecipientFirstName', 'RecipientLastName', 'RecipientEmail', 'Q14.7')) |> 
+  filter(
+    Progress == 100,
+    Status != "Survey Preview")
+  
+saveRDS(df3_clean, file = "data/clean/Delphi3.rds")
+xlsx::write.xlsx(df3_clean, file = "data/clean/Delphi3.xlsx")
+```
+
+```{r}
+df3 <- read_rds(file = "data/clean/Delphi3.rds") 
+  
+```
+
+```{r}
+# get some metrics
+n1 <- df3 |> 
+  summarise(n = n()) |>
+  pull() 
+
+first_enddate <- df3 |> 
+  summarise(min(EndDate)) |>
+  pull() 
+
+last_enddate <- df3 |> 
+  summarise(max(EndDate)) |>
+  pull() 
+
+n_finished <-  df3 |> 
+  count(Finished) |> 
+  filter(Finished == TRUE) |> 
+  pull()
+
+```
+
+# Survey metrics
+
+Number of responses: `r n1`
+
+Number of complete responses: `r n_finished`
+
+First response: `r first_enddate`
+
+Last response: `r last_enddate`
+
+# Data dictionary
+
+```{r}
+
+# Function to create a data dictionary
+
+create_data_dictionary <- function(dataframe) {
+  # Get basic information
+  variable_names <- names(dataframe)
+  variable_types <- sapply(dataframe, function(x) class(x)[1])
+  variable_labels <- sapply(dataframe, function(x) sjlabelled::get_label(x))
+
+  # Check if all vectors have the same length
+  if (length(variable_names) != length(variable_types) || length(variable_names) != length(variable_labels)) {
+    stop("Mismatch in the lengths of variables, types, and labels.")
+  }
+ 
+  # Create the initial data frame
+  dictionary <- data.frame(Variable = variable_names, 
+                           Type = variable_types, 
+                           Label = variable_labels, 
+                           stringsAsFactors = FALSE)
+
+  # Add summary statistics
+  dictionary$Summary <- sapply(dataframe, function(x) {
+    if (is.numeric(x)) {
+      paste0("Mean=", mean(x, na.rm = TRUE), ", Min=", min(x, na.rm = TRUE), ", Max=", max(x, na.rm = TRUE))
+    } else if (is.factor(x) || is.character(x)) {
+      paste0("Categories=", length(unique(x)))
+    } else {
+      NA
+    }
+  })
+ 
+  rownames(dictionary) <- NULL #remove rownames
+  return(dictionary)
+}
+
+# Create data dictionary
+data_dictionary <- create_data_dictionary(df3)
+
+# shorten the label names of Q2-Q13
+data_dictionary <- data_dictionary |>
+  # filter(Variable != "Q1.1") |> 
+  mutate(
+    variable = if_else(str_detect(Variable, "^Q(1[0-3]|[2-9])"), str_extract(Variable, "Q\\d+\\."), Variable),
+    Label = if_else(str_detect(Variable, "^Q(1[0-3]|[2-9])"),
+                    paste0(variable, str_trunc(Label, 40)," ", str_replace(Label, ".*(?=\\(\\d+%\\))","")),
+                    Label)) |> 
+  select(-variable)
+  
+# print the data dictionary
+data_dictionary |> 
+  kable("html") |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+# update the label attribute with the shorter notations
+df3 <- df3 |> 
+  sjlabelled::set_label(data_dictionary$Label)
+
+```
+
+# Summary results
+
+```{r}
+# set my kable function
+my_kable <- function(x) {
+    x |> 
+    kable("html", col.names = c(label , "Count"), align = 'l') |> 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), 
+                  full_width = FALSE,
+                  position = "left")
+  }
+
+my_kable_prop <- function(x) {
+    x |> 
+    kable("html", align = 'l') |> 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  }
+
+# set my label function
+my_label <- function(var) {
+  sjlabelled::get_label(var)
+}
+```
+
+## Participant characteristics
+
+```{r}
+label <- my_label(df3$Q14.1)
+df3 |> 
+  count(Q14.1, sort = TRUE) |> 
+  my_kable()
+
+label <- my_label(df3$Q14.2)
+df3 |> 
+  count(Q14.2, sort = TRUE) |> 
+  my_kable()
+
+label <- my_label(df3$Q14.3)
+df3 |> 
+  count(Q14.3, sort = FALSE) |> 
+  my_kable()
+
+label <- my_label(df3$Q14.4)
+df3 |> 
+  count(Q14.4, sort = TRUE) |> 
+  my_kable()
+
+label <- my_label(df3$Q14.5)
+df3 |> 
+  count(Q14.5, sort = TRUE) |> 
+  my_kable()
+
+label <- my_label(df3$Q14.6)
+df3 |> 
+  count(Q14.6, sort = TRUE) |> 
+  my_kable()
+```
+
+## Summary of responses
+```{r echo=FALSE}
+# create vector of questions variable names
+get_question_names <- function(df) {
+  # Pattern to match variable names starting with Q2 to Q13
+  pattern <- "^Q(2|3|4|5|6|7|8|9|10|11|12|13)"
+  
+  # Use grep to find matches and return the names of the matching variables
+  matching_names <- names(df)[grep(pattern, names(df))]
+  
+  return(matching_names)
+}
+
+question_names <- get_question_names(df3)
+
+# create a function to summarize the responses including the proportions (don't use previous functions)
+summary_responses_prop <- function(df, question_names) {
+  # Create an empty list to store the results
+  results <- list()
+  
+  # Loop through the question names
+  for (question in question_names) {
+    # Get the label for the question
+    label <- sjlabelled::get_label(df[[question]])
+    
+    # Count the number of responses for each category
+    counts <- df |> 
+      count(!!sym(question), sort = TRUE) |> 
+      mutate(Proportion = n / sum(n))
+    
+    # Add the results to the list
+    results[[label]] <- counts
+  }
+  
+  return(results)
+}
+```
+
+
+```{r}
+# run function to get the summary of responses
+
+response_summary_prop <- summary_responses_prop(df3, question_names)
+
+```
+
+
+```{r results='asis'}
+
+for (element in response_summary_prop) {
+    label <- attr(element[[1]], "label")
+    table_html <- kable(
+      element,
+      col.names = c(label, "n", "Proportion")) |> 
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "left") 
+    # Print the table and add an HTML line break for spacing
+  cat(table_html, "<br><br>", sep = "")
+}
+
+
+ 
+```
+
+
