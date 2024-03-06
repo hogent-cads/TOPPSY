@@ -127,9 +127,18 @@ data_dictionary |>
   kable("html") |> 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 
+# create df of variable names and labels for excel export
+
+variable_labels <- tibble(
+  variable = names(df2),
+  label = data_dictionary$Label
+)
+
+
 # update the label attribute with the shorter notations
 df2 <- df2 |> 
   sjlabelled::set_label(data_dictionary$Label)
+
 
 ```
 
@@ -310,11 +319,6 @@ my_proportions <- function(df, var_name){
 
 ```{r results='asis'}
 
-# df2_percent <- df2_long_non_text |> 
-#   group_by(variable, cluster) |>
-#   # count(value) |>
-#   mutate(percent = n / sum(n)) |>
-#   ungroup() 
 
 # create labels df
 
@@ -329,18 +333,28 @@ df2_long_non_text <- df2 %>%
   select(non_text_question_names) %>% 
   pivot_longer(everything(), names_to = "variable", values_to = "value") %>% 
   filter(!is.na(value)) %>%
-  left_join(variable_labels, by = "variable")  # Join with variable labels
+  left_join(variable_labels, by = "variable") |>   # Join with variable labels
+  mutate(cluster = var_to_cluster[as.character(variable)])   # Add cluster information
+  
+df2_percent <- df2_long_non_text |>
+  group_by(variable, cluster, label) |>
+  count(value) |>
+  mutate(percent = n / sum(n)) |>
+  ungroup()
 
-# df2_long_non_text now includes an additional column 'label' with the associated labels
-
-
-df2_long_non_text |> 
-  arrange(cluster, variable) |>
-  select(-max_percent) |>
-  left_join(non_text_labels_df, by = "variable") |> 
+df2_percent |> 
   relocate(cluster, .before = variable) |>
-  relocate(label, .before = value) |> 
+  arrange(cluster, variable) |>
   xlsx::write.xlsx("data/clean/Delphi2_percentages.xlsx")
+
+
+# df2_long_non_text |> 
+#   arrange(cluster, variable) |>
+#   select(-max_percent) |>
+#   left_join(non_text_labels_df, by = "variable") |> 
+#   relocate(cluster, .before = variable) |>
+#   relocate(label, .before = value) |> 
+#   xlsx::write.xlsx("data/clean/Delphi2_percentages.xlsx")
 
 
 # for (cluster_name in names(clusters)) {

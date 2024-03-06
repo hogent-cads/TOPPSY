@@ -202,43 +202,84 @@ df3 |>
 ```
 
 ## Summary of responses
+
 ```{r echo=FALSE}
 # create vector of questions variable names
 get_question_names <- function(df) {
   # Pattern to match variable names starting with Q2 to Q13
   pattern <- "^Q(2|3|4|5|6|7|8|9|10|11|12|13)"
-  
+
   # Use grep to find matches and return the names of the matching variables
   matching_names <- names(df)[grep(pattern, names(df))]
-  
+
   return(matching_names)
 }
 
 question_names <- get_question_names(df3)
 
 # create a function to summarize the responses including the proportions (don't use previous functions)
+# summary_responses_prop <- function(df, question_names) {
+#   # Create an empty list to store the results
+#   results <- list()
+#   
+#   # Loop through the question names
+#   for (question in question_names) {
+#     # Get the label for the question
+#     label <- sjlabelled::get_label(df[[question]])
+#     
+#     # Count the number of responses for each category
+#     counts <- df |> 
+#       count(!!sym(question), sort = TRUE) |> 
+#       mutate(Proportion = n / sum(n))
+#     
+#     # Add the results to the list
+#     results[[label]] <- counts
+#   }
+#   
+#   return(results)
+# }
+
+# create a function to summarize the responses including the proportions (don't count NA's for proportions!!)
+
 summary_responses_prop <- function(df, question_names) {
   # Create an empty list to store the results
   results <- list()
-  
+
   # Loop through the question names
   for (question in question_names) {
     # Get the label for the question
     label <- sjlabelled::get_label(df[[question]])
-    
-    # Count the number of responses for each category
-    counts <- df |> 
-      count(!!sym(question), sort = TRUE) |> 
-      mutate(Proportion = n / sum(n))
-    
+
+    # Count the number of responses for each category, including NAs
+    total_counts <- df |>
+      count(!!sym(question), sort = TRUE, name = "n_total")
+
+    # Calculate the total proportion including NAs
+    total_counts <- total_counts |>
+      mutate(TotalProportion = n_total / sum(n_total))
+
+    # Filter out NAs and count the number of non-NA responses
+    valid_counts <- df |>
+      filter(str_starts(!!sym(question), "I")) |> 
+      count(!!sym(question), sort = TRUE, name = "n_valid")
+
+    # Calculate the valid proportion excluding NAs
+    valid_counts <- valid_counts |>
+      mutate(ValidProportion = n_valid / sum(n_valid))
+
+    # Merge total and valid counts to have both TotalProportion and ValidProportion
+    counts <- left_join(total_counts, valid_counts) |> 
+      select(-TotalProportion, -n_valid)
+
     # Add the results to the list
     results[[label]] <- counts
   }
-  
+
   return(results)
 }
-```
 
+
+```
 
 ```{r}
 # run function to get the summary of responses
@@ -246,7 +287,6 @@ summary_responses_prop <- function(df, question_names) {
 response_summary_prop <- summary_responses_prop(df3, question_names)
 
 ```
-
 
 ```{r results='asis'}
 
@@ -386,5 +426,3 @@ df3_aggr |>
 
 
 ```
-
-
