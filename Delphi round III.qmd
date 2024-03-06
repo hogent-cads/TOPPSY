@@ -269,7 +269,8 @@ summary_responses_prop <- function(df, question_names) {
 
     # Merge total and valid counts to have both TotalProportion and ValidProportion
     counts <- left_join(total_counts, valid_counts) |> 
-      select(-TotalProportion, -n_valid)
+      select(-TotalProportion, -n_valid) |> 
+      mutate(ValidProportion = round(ValidProportion, 2)) 
 
     # Add the results to the list
     results[[label]] <- counts
